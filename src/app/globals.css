@@ -5,6 +5,14 @@
   --foreground: #171717;
 }
 
+@theme {
+  --color-kiro: #f1c766;
+  --color-gavin: #8dbddd;
+  --color-victor: #e7787f;
+  --color-lucien: #8f92c4;
+  --color-shaw: #9d9ca1;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -18,8 +18,9 @@ const notoSerif = Noto_Serif({
 });
 
 export const metadata: Metadata = {
-  title: 'Love and Deepspace Memmory Chart',
-  description: 'Look at all these pretty cards!',
+  title: "Mr Love Queen's Choice Archive",
+  description:
+    "Dive back into the world of Mr Love Queen's Choice with our comprehensive archive. Explore media content from the beloved game.",
 };
 
 export default function RootLayout({
