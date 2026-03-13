@@ -76,8 +76,8 @@ const MLQCPage = async () => {
                               height={1564}
                               src={
                                 card.banner === 'Major Event' ?
-                                `/mlqc/${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png` :
-                                (`/mlqc/${card.character}_${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png` ||
+                                `/karma/${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png` :
+                                (`/karma/${card.character}_${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png` ||
                                 '')
                               }
                               alt={card.name || ''}
