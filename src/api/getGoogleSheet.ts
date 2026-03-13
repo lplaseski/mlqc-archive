@@ -6,8 +6,8 @@ export default async function getGoogleSheet(sheet: string) {
       process.env.GOOGLE_KEY || '',
       'base64'
     ).toString();
-    const keyFile = JSON.parse(encodedKey);
 
+    const keyFile = JSON.parse(encodedKey);
     //Function for authentication object
     const auth = new google.auth.GoogleAuth({
       credentials: keyFile,
@@ -18,6 +18,7 @@ export default async function getGoogleSheet(sheet: string) {
 
     //Function for spreadsheetId
     const spreadsheetId = process.env.CARD_SHEET_ID || '';
+
     //Function for getting the sheet
     const sheetData = await sheets.spreadsheets.values.get({
       auth,
@@ -27,7 +28,7 @@ export default async function getGoogleSheet(sheet: string) {
 
     return sheetData;
   } catch (error) {
-    console.error('Error fetching spreadsheet:', JSON.stringify(error));
+    console.error('Error fetching spreadsheet:', error, JSON.stringify(error));
     return { data: { values: [] } };
   }
 }
