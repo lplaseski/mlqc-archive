@@ -9,6 +9,13 @@ import {
   characterHoverBg,
 } from '../constants';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Karma Cards | Mr Love: Queen's Choice Archive",
+  description:
+    "Browse all Karma cards from Mr Love: Queen's Choice, organized by date, banner, and character.",
+};
 
 const MLQCPage = async () => {
   const cards = await getSheetData('Sheet3');

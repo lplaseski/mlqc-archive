@@ -9,8 +9,26 @@ import {
   characterHoverBg,
 } from '@/app/constants';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
-const FilteredKarmaPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const name = slug.charAt(0).toUpperCase() + slug.slice(1);
+  return {
+    title: `${name} Karma Cards | Mr Love: Queen's Choice Archive`,
+    description: `Browse all ${name} Karma cards from Mr Love: Queen's Choice.`,
+  };
+}
+
+const FilteredKarmaPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const cards = await getSheetData('Sheet3');
   const { slug } = await params;
   const groups = cards.reduce(
