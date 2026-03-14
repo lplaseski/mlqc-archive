@@ -10,7 +10,7 @@ import {
 } from '@/app/constants';
 import Link from 'next/link';
 
-const FilteredKarmaPage = async ({ params }: { params: { slug: string } }) => {
+const FilteredKarmaPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const cards = await getSheetData('Sheet3');
   const { slug } = await params;
   const groups = cards.reduce(
