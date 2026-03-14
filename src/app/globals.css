@@ -11,6 +11,12 @@
   --color-victor: #e7787f;
   --color-lucien: #8f92c4;
   --color-shaw: #9d9ca1;
+
+  --color-kiro-bg: #f1c76635;
+  --color-gavin-bg: #8dbddd35;
+  --color-victor-bg: #e7787f35;
+  --color-lucien-bg: #8f92c435;
+  --color-shaw-bg: #9d9ca135;
 }
 
 @theme inline {

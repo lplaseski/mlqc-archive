@@ -7,16 +7,17 @@ import {
   characterBorders,
   characterColors,
   characterHoverBg,
-} from '../constants';
+} from '@/app/constants';
 import Link from 'next/link';
 
-const MLQCPage = async () => {
+const FilteredKarmaPage = async ({ params }: { params: { slug: string } }) => {
   const cards = await getSheetData('Sheet3');
+  const { slug } = await params;
   const groups = cards.reduce(
     (acc, card, index) => {
-      const { date, banner, viewed } = card;
+      const { date, banner, viewed, character } = card;
       const cardWithIndex = { ...card, viewed: Number(viewed || '0'), index };
-      if (date && banner) {
+      if (date && banner && character?.toLowerCase() === slug) {
         if (acc?.[date]?.[banner]) {
           acc[date][banner].push(cardWithIndex);
         } else if (acc?.[date]) {
@@ -45,16 +46,24 @@ const MLQCPage = async () => {
         <header className="min-h-60 w-full border-b-20 border-indigo-950 bg-[url('/karma-header.jpg')] bg-cover bg-top bg-no-repeat md:min-h-70 xl:min-h-90 2xl:min-h-120" />
         <div className='flex flex-wrap items-center gap-6 p-10'>
           <p className='font-bold'>View by Character:</p>
+          <Link
+            href={`/karma`}
+            key='all'
+            className={`min-w-30 rounded-3xl border-2 border-gray-900 p-1 text-center text-sm font-bold text-gray-900 hover:bg-gray-100`}
+          >
+            View All
+          </Link>
           {Object.entries(characterColors).map(([character, color]) => (
-            <Link
+            <a
               href={`/karma/${character.toLowerCase()}`}
               key={character}
               className={`min-w-30 rounded-3xl border-2 p-1 text-center text-sm font-bold ${color} ${characterBorders[character?.toLowerCase() ?? ''] ?? 'border-gray-900'} ${characterHoverBg[character?.toLowerCase() ?? ''] ?? 'hover:bg-gray-900'}`}
             >
               {character.charAt(0).toUpperCase() + character.slice(1)}
-            </Link>
+            </a>
           ))}
         </div>
+
         <div className='flex flex-wrap items-center justify-center gap-6 p-10'>
           {sortedGroups.map((group) => (
             <div
@@ -136,4 +145,4 @@ const MLQCPage = async () => {
   );
 };
 
-export default MLQCPage;
+export default FilteredKarmaPage;

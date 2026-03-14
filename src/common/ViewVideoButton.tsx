@@ -11,7 +11,7 @@ interface ViewVideoButtonProps {
 
 const ViewVideoButton = ({ link, title }: ViewVideoButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log('ViewVideoButton rendered with link:', link, 'and title:', title);
+
   const handleModalToggle = useCallback(() => {
     setIsModalOpen((v) => !v);
   }, []);
