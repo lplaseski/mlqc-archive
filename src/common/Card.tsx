@@ -1,9 +1,8 @@
 import React from 'react';
 import { CardType } from './types';
 import Image from 'next/image';
-import Overlay from './Overlay';
 
-const Card = ({ name, type, stellacrum, character, yt_video }: CardType) => {
+const Card = ({ name, type, stellacrum, character }: CardType) => {
   let folder = 'limited';
   if (type === 'standard') {
     folder = 'standard';
@@ -20,7 +19,6 @@ const Card = ({ name, type, stellacrum, character, yt_video }: CardType) => {
   return (
     <div className='flex flex-col items-center gap-2'>
       <div className='relative h-55 w-40 overflow-hidden rounded-md'>
-        <Overlay name={name || ''} link={yt_video || ''} showWanted showOwned />
         <Image
           className='peer-data-[locked=true]:grayscale-85'
           alt={name || ''}

@@ -11,6 +11,7 @@
     "format:fix": "prettier --write ."
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.2",
     "@vercel/analytics": "^2.0.1",
     "chart.js": "^4.4.9",
     "googleapis": "^148.0.0",

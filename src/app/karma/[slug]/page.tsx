@@ -1,4 +1,4 @@
-import getSheetData from '@/actions/getSheetData';
+import getKarmaData from '@/actions/getKarma';
 import { MLQCCardType } from '@/common/types';
 import React from 'react';
 import Image from 'next/image';
@@ -29,7 +29,7 @@ const FilteredKarmaPage = async ({
 }: {
   params: Promise<{ slug: string }>;
 }) => {
-  const cards = await getSheetData('Sheet3');
+  const cards = await getKarmaData();
   const { slug } = await params;
   const groups = cards.reduce(
     (acc, card, index) => {

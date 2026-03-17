@@ -1,4 +1,4 @@
-import getSheetData from '@/actions/getSheetData';
+import getKarmaData from '@/actions/getKarma';
 import { MLQCCardType } from '@/common/types';
 import React from 'react';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 const MLQCPage = async () => {
-  const cards = await getSheetData('Sheet3');
+  const cards = await getKarmaData();
   const groups = cards.reduce(
     (acc, card, index) => {
       const { date, banner, viewed } = card;
