@@ -11,12 +11,18 @@ export default function Home() {
           <p className='text-gray-600'>
             A collection of archived content from Mr Love Queen&apos;s Choice.
           </p>
-          <div className='flex flex-wrap gap-4'>
+          <div className='flex flex-col gap-4'>
             <Link
               href='/karma'
-              className='rounded-xl bg-indigo-900 px-8 py-3 font-bold text-white transition-colors hover:bg-indigo-700'
+              className='rounded-xl bg-indigo-900 px-8 py-3 text-center font-bold text-white transition-colors hover:bg-indigo-700'
             >
               Karma Cards
+            </Link>
+            <Link
+              href='/banners'
+              className='rounded-xl bg-indigo-900 px-8 py-3 text-center font-bold text-white transition-colors hover:bg-indigo-700'
+            >
+              Banner Assets
             </Link>
           </div>
         </div>

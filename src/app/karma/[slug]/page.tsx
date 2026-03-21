@@ -72,13 +72,13 @@ const FilteredKarmaPage = async ({
             View All
           </Link>
           {Object.entries(characterColors).map(([character, color]) => (
-            <a
+            <Link
               href={`/karma/${character.toLowerCase()}`}
               key={character}
               className={`min-w-30 rounded-3xl border-2 p-1 text-center text-sm font-bold ${color} ${characterBorders[character?.toLowerCase() ?? ''] ?? 'border-gray-900'} ${characterHoverBg[character?.toLowerCase() ?? ''] ?? 'hover:bg-gray-900'}`}
             >
               {character.charAt(0).toUpperCase() + character.slice(1)}
-            </a>
+            </Link>
           ))}
         </div>
 

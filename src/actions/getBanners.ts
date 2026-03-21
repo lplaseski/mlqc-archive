@@ -10,7 +10,7 @@ const getBanners = async (): Promise<BannerEntry[]> => {
   const { data, error } = await supabase
     .from('banners')
     .select('*')
-    .order('date', { ascending: false });
+    .order('date', { ascending: true });
 
   if (error) {
     console.error('Error fetching banners:', error);
