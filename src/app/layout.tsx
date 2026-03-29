@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Noto_Sans, Geist_Mono, Noto_Serif } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
+import { Suspense } from 'react';
+import NavBar from './NavBar';
 
 const geistSans = Noto_Sans({
   variable: '--font-noto-sans',
@@ -41,6 +43,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoSerif.variable} antialiased`}
       >
+        <Suspense fallback={null}>
+          <NavBar />
+        </Suspense>
         {children}
       </body>
     </html>
