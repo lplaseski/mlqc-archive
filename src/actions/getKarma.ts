@@ -1,7 +1,11 @@
 import { supabase } from '@/lib/supabase';
+import { cacheLife } from 'next/cache';
 import { MLQCCardType } from '@/common/types';
 
 const getKarmaData = async () => {
+  'use cache';
+  cacheLife('hours');
+
   const { data, error } = await supabase.from('karma_flat').select('*');
 
   if (error) {
