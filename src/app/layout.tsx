@@ -39,13 +39,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <Analytics />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoSerif.variable} antialiased`}
       >
         <Suspense fallback={null}>
-          <NavBar />
+          <Analytics />
         </Suspense>
+        <NavBar />
         {children}
       </body>
     </html>
