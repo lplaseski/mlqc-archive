@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const links = [
   { href: '/karma', label: 'Karma Cards' },
   { href: '/banners', label: 'Banners' },
+  { href: '/chat-messages', label: 'Chat Messages' },
 ];
 
 const NavLinks = () => {

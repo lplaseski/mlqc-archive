@@ -2,39 +2,33 @@
 
 import { useEffect, useRef } from 'react';
 import { Conversation, DisplayMessage, CharInfo } from './types';
+import Avatar from './Avatar';
 
-function MessageBubble({ message, ch }: { message: DisplayMessage; ch: CharInfo }) {
+function MessageBubble({
+  message,
+  ch,
+}: {
+  message: DisplayMessage;
+  ch: CharInfo;
+}) {
   const isNpc = message.sender === 'npc';
   return (
-    <div className={`flex items-end gap-2 ${isNpc ? 'justify-start' : 'justify-end'}`}>
-      {isNpc && (
-        <div
-          className='flex h-7 w-7 flex-shrink-0 items-center justify-center self-end rounded-full text-sm font-bold'
-          style={{ background: ch.bg, color: '#fff' }}
-        >
-          {ch.emoji}
-        </div>
-      )}
+    <div
+      className={`flex items-end gap-2 ${isNpc ? 'justify-start' : 'justify-end'}`}
+    >
+      {isNpc && <Avatar character={ch.name} size='md' />}
       <div style={{ maxWidth: '72%' }}>
         <div
-          className='break-words px-3 py-2 text-sm leading-relaxed'
+          className='data-npc:bg-npc-bg data-npc:border-npc-border bg-mc-bg border-mc-border border px-3 py-2 text-sm leading-relaxed wrap-break-word text-[#8D898F]'
+          data-npc={isNpc ? 'true' : undefined}
           style={{
-            background: isNpc ? '#22222f' : ch.bubble,
-            color: '#e8e8f0',
             borderRadius: isNpc ? '4px 16px 16px 16px' : '16px 4px 16px 16px',
           }}
         >
           {message.content ?? ''}
         </div>
-        {message.send_time && (
-          <div
-            className='mt-1 text-[10px]'
-            style={{ color: '#7a7a9a', textAlign: isNpc ? 'left' : 'right' }}
-          >
-            {message.send_time}
-          </div>
-        )}
       </div>
+      {!isNpc && <Avatar character='mc' size='md' />}
     </div>
   );
 }
@@ -70,7 +64,10 @@ export default function ChatPanel({
 
   if (!conv || !ch) {
     return (
-      <div className='flex flex-1 flex-col items-center justify-center gap-3' style={{ color: '#7a7a9a' }}>
+      <div
+        className='flex flex-1 flex-col items-center justify-center gap-3 bg-white'
+        style={{ color: '#7a7a9a' }}
+      >
         <span className='text-5xl opacity-50'>💬</span>
         <p className='text-sm'>Select a conversation to begin</p>
       </div>
@@ -78,97 +75,75 @@ export default function ChatPanel({
   }
 
   return (
-    <div className='flex min-w-0 flex-1 flex-col'>
-      {/* Header */}
-      <div
-        className='flex flex-shrink-0 items-center gap-3 border-b px-5 py-3.5'
-        style={{ background: '#1a1a24', borderColor: '#2e2e3e' }}
-      >
-        <div
-          className='flex h-10 w-10 items-center justify-center rounded-full text-xl font-bold'
-          style={{ background: ch.bg, color: '#fff' }}
-        >
-          {ch.emoji}
-        </div>
-        <div className='flex-1'>
-          <div className='text-sm font-bold' style={{ color: '#e8e8f0' }}>
-            {conv.name}
+    <div className='height-full flex grow justify-center bg-white'>
+      <div className='border-mc-border flex max-w-162.5 min-w-0 flex-1 grow flex-col border'>
+        {/* Header */}
+        <div className='from-message-blue via-message-purple to-message-pink flex shrink-0 items-center gap-3 border-b bg-linear-to-r px-5 py-3.5'>
+          <div className='flex-1'>
+            <div className='text-center text-xl font-semibold text-[#766a7b]'>
+              {conv.name} - {ch.name}
+            </div>
           </div>
-          <div className='mt-0.5 text-xs' style={{ color: '#7a7a9a' }}>
-            {ch.name} · {conv.type === 1 ? 'Interactive' : 'Linear'} · #{conv.id}
+          <div className='flex gap-2'>
+            <button
+              onClick={onRestart}
+              className='bg-message-purple hover:bg-highlight-purple/50 cursor-pointer rounded border px-3.5 py-1.5 text-xs text-mauve-700 transition-colors'
+            >
+              ↺ Restart
+            </button>
+            <button
+              onClick={onToggleAutoPlay}
+              data-active={autoPlay ? 'true' : undefined}
+              className='bg-message-purple hover:bg-highlight-purple/50 data-active:bg-highlight-purple cursor-pointer rounded border px-3.5 py-1.5 text-xs text-mauve-700 transition-colors'
+            >
+              {autoPlay ? '⏸ Auto' : '▶ Auto'}
+            </button>
           </div>
         </div>
-        <div className='flex gap-2'>
-          <button
-            onClick={onRestart}
-            className='cursor-pointer rounded border px-3.5 py-1.5 text-xs transition-colors'
-            style={{ background: 'transparent', borderColor: '#2e2e3e', color: '#e8e8f0' }}
-          >
-            ↺ Restart
-          </button>
-          <button
-            onClick={onToggleAutoPlay}
-            className='cursor-pointer rounded border px-3.5 py-1.5 text-xs transition-colors'
+
+        {/* Messages */}
+        <div className='height-fill flex flex-1 flex-col overflow-y-auto bg-white'>
+          <div
+            className='height-fill flex grow flex-col gap-5 bg-cover bg-center p-5 bg-blend-lighten'
             style={{
-              background: autoPlay ? '#8b5cf6' : 'transparent',
-              borderColor: autoPlay ? '#8b5cf6' : '#2e2e3e',
-              color: autoPlay ? '#fff' : '#e8e8f0',
+              backgroundImage: `url(/chat/bg/${ch.name.toLowerCase()}.jpg)`,
+              backgroundColor: 'rgba(255, 255, 255, 0.75)',
             }}
           >
-            {autoPlay ? '⏸ Auto' : '▶ Auto'}
-          </button>
-        </div>
-      </div>
-
-      {/* Messages */}
-      <div className='flex flex-1 flex-col gap-1 overflow-y-auto p-5'>
-        {messages.map((m, i) => (
-          <MessageBubble key={`${m.id}-${i}`} message={m} ch={ch} />
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Choices */}
-      {choices.length > 0 && (
-        <div
-          className='flex flex-col gap-2 border-t px-5 pb-4 pt-3'
-          style={{ background: '#1a1a24', borderColor: '#2e2e3e' }}
-        >
-          <div
-            className='text-[11px] uppercase tracking-widest'
-            style={{ color: '#7a7a9a' }}
-          >
-            Choose a reply
-          </div>
-          <div className='flex flex-col gap-1.5'>
-            {choices.map((c) => (
-              <button
-                key={c.id}
-                onClick={() => onPickChoice(c)}
-                className='cursor-pointer rounded-lg border px-3.5 py-2.5 text-left text-xs transition-colors'
-                style={{
-                  background: '#22222f',
-                  borderColor: '#2e2e3e',
-                  color: '#e8e8f0',
-                  lineHeight: 1.4,
-                }}
-              >
-                {c.title || c.content || '…'}
-              </button>
+            {messages.map((m, i) => (
+              <MessageBubble key={`${m.id}-${i}`} message={m} ch={ch} />
             ))}
           </div>
+          <div ref={messagesEndRef} />
         </div>
-      )}
 
-      {/* Done */}
-      {choices.length === 0 && isDone && (
-        <div
-          className='border-t px-5 py-4 text-center text-xs'
-          style={{ background: '#1a1a24', borderColor: '#2e2e3e', color: '#7a7a9a' }}
-        >
-          ✨ Conversation complete
-        </div>
-      )}
+        {/* Choices */}
+        {choices.length > 0 && (
+          <div className='flex flex-col gap-2 border-t border-mauve-500 bg-gray-100 px-5 pt-3 pb-4'>
+            <div className='text-xs tracking-widest text-mauve-700 uppercase'>
+              Choose a reply
+            </div>
+            <div className='flex flex-col gap-1.5'>
+              {choices.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => onPickChoice(c)}
+                  className='bg-mauve-00 cursor-pointer rounded-lg border px-3.5 py-2.5 text-left text-sm text-mauve-700 transition-colors hover:bg-mauve-200'
+                >
+                  {c.title || c.content || '…'}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Done */}
+        {choices.length === 0 && isDone && (
+          <div className='from-message-blue to-message-pink border-t border-white bg-linear-90 px-5 py-4 text-center text-xs text-mauve-700'>
+            ✨ Conversation complete
+          </div>
+        )}
+      </div>
     </div>
   );
 }

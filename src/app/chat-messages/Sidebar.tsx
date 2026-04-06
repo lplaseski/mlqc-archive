@@ -2,6 +2,7 @@
 
 import { Conversation } from './types';
 import { getCharInfo } from './charInfo';
+import Avatar from './Avatar';
 
 const FILTERS = [
   { key: 'all', label: 'All' },
@@ -38,21 +39,16 @@ export default function Sidebar({
 }: SidebarProps) {
   return (
     <div
-      className='flex flex-shrink-0 flex-col border-r'
+      className='from-message-blue via-message-purple to-message-pink flex shrink-0 flex-col border-r border-mauve-500 bg-linear-90'
       style={{
         width: 300,
         minWidth: 260,
-        background: '#1a1a24',
-        borderColor: '#2e2e3e',
       }}
     >
       {/* Header */}
-      <div className='border-b p-4' style={{ borderColor: '#2e2e3e' }}>
-        <h1
-          className='mb-2.5 text-sm font-bold tracking-wide'
-          style={{ color: '#e8e8f0' }}
-        >
-          💌 Message Replay
+      <div className='border-b p-4'>
+        <h1 className='mb-2.5 text-sm font-bold tracking-wide text-mauve-600'>
+          Message Replay
         </h1>
         <input
           type='text'
@@ -60,33 +56,20 @@ export default function Sidebar({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           autoComplete='off'
-          className='w-full rounded-lg border px-3 py-1.5 text-xs outline-none'
-          style={{
-            background: '#22222f',
-            borderColor: '#2e2e3e',
-            color: '#e8e8f0',
-          }}
+          className='bg-message-purple w-full rounded-lg border border-mauve-600 px-3 py-1.5 text-xs text-mauve-700 placeholder-mauve-700 outline-none'
         />
       </div>
 
       {/* Filter bar */}
-      <div
-        className='flex flex-wrap gap-1.5 border-b px-3.5 py-2.5'
-        style={{ borderColor: '#2e2e3e' }}
-      >
+      <div className='flex flex-wrap gap-1.5 border-b border-mauve-500 px-3.5 py-2.5'>
         {FILTERS.map((f) => {
           const isActive = currentFilter === f.key;
           return (
             <button
               key={f.key}
               onClick={() => onFilterChange(f.key)}
-              className='cursor-pointer rounded-full border px-2.5 py-1 text-[11px] transition-colors'
-              style={{
-                background: isActive ? '#8b5cf6' : 'transparent',
-                borderColor: isActive ? '#8b5cf6' : '#2e2e3e',
-                color: isActive ? '#fff' : '#7a7a9a',
-                fontWeight: isActive ? 600 : 400,
-              }}
+              data-active={isActive ? 'true' : undefined}
+              className='data-active:bg-highlight-purple data-active:border-highlight-purple cursor-pointer rounded-full border bg-white/30 px-2.5 py-1 text-[11px] text-mauve-700 transition-colors data-active:text-white'
             >
               {f.label}
             </button>
@@ -94,13 +77,8 @@ export default function Sidebar({
         })}
         <button
           onClick={onToggleHidden}
-          className='cursor-pointer rounded-full border px-2.5 py-1 text-[11px] transition-colors'
-          style={{
-            background: showHidden ? '#8b5cf6' : 'transparent',
-            borderColor: showHidden ? '#8b5cf6' : '#2e2e3e',
-            color: showHidden ? '#fff' : '#7a7a9a',
-            fontWeight: showHidden ? 600 : 400,
-          }}
+          data-active={showHidden ? 'true' : undefined}
+          className='data-active:bg-highlight-purple data-active:border-highlight-purple cursor-pointer rounded-full border bg-white/30 px-2.5 py-1 text-[11px] text-mauve-700 transition-colors data-active:text-white'
         >
           + Hidden
         </button>
@@ -113,42 +91,22 @@ export default function Sidebar({
           const isActive = conv.id === activeConvId;
           return (
             <div
+              data-active={isActive ? 'true' : undefined}
               key={conv.id}
               onClick={() => onSelectConv(conv.id)}
-              className='flex cursor-pointer items-center gap-2.5 border-b px-3.5 py-2.5 transition-colors'
-              style={{
-                borderColor: 'rgba(255,255,255,0.03)',
-                background: isActive ? '#22222f' : undefined,
-                borderLeft: isActive
-                  ? '3px solid #8b5cf6'
-                  : '3px solid transparent',
-              }}
+              className='data-active:bg-highlight-purple/50 flex cursor-pointer items-center gap-2.5 border-b px-3.5 py-2.5 transition-colors'
             >
-              <div
-                className='flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-lg font-bold'
-                style={{ background: ch.bg, color: '#fff' }}
-              >
-                {ch.emoji}
-              </div>
+              <Avatar character={ch.name} />
               <div className='min-w-0'>
-                <div
-                  className='truncate text-xs font-semibold'
-                  style={{ color: '#e8e8f0' }}
-                >
+                <div className='truncate text-xs font-bold text-mauve-700'>
                   {conv.name}
                   {conv.hidden && (
-                    <span
-                      className='ml-1 rounded px-1 align-middle text-[9px]'
-                      style={{ background: '#22222f', color: '#7a7a9a' }}
-                    >
+                    <span className='ml-1 rounded px-1 align-middle text-[9px] text-mauve-600'>
                       hidden
                     </span>
                   )}
                 </div>
-                <div
-                  className='mt-0.5 text-[11px]'
-                  style={{ color: '#7a7a9a' }}
-                >
+                <div className='mt-0.5 text-[11px] text-mauve-600'>
                   {ch.name} · #{conv.id}
                 </div>
               </div>
@@ -158,10 +116,7 @@ export default function Sidebar({
       </div>
 
       {/* Count */}
-      <div
-        className='border-t px-3.5 py-1.5 text-[11px]'
-        style={{ borderColor: '#2e2e3e', color: '#7a7a9a' }}
-      >
+      <div className='border-t border-mauve-500 px-3.5 py-1.5 text-[11px] text-mauve-600'>
         {conversations.length} conversation
         {conversations.length !== 1 ? 's' : ''}
       </div>

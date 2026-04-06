@@ -12,6 +12,17 @@
   --color-lucien: #8f92c4;
   --color-shaw: #9d9ca1;
 
+  --color-message-blue: #c3d0fe;
+  --color-message-pink: #fcdee6;
+  --color-message-purple: #e8c7e9;
+  --color-highlight-purple: hsla(281, 43%, 68%, 1);
+
+  --color-npc-bg: #f9f9f9;
+  --color-npc-border: #d9d5e1;
+
+  --color-mc-bg: #fff2f9;
+  --color-mc-border: #d9d5e1;
+
   --color-kiro-bg: #f1c76635;
   --color-gavin-bg: #8dbddd35;
   --color-victor-bg: #e7787f35;
