@@ -1,9 +1,10 @@
+'use cache';
+
 import { ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { cacheLife } from 'next/cache';
 import assetClient from '../api/assetClient';
 
 export const getImageMeta = async (bucketName: string, prefix?: string) => {
-  'use cache';
   cacheLife('hours');
 
   try {

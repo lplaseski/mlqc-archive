@@ -1,3 +1,5 @@
+'use cache';
+
 import { supabase } from '@/lib/supabase';
 import { cacheLife } from 'next/cache';
 
@@ -8,7 +10,6 @@ export interface BannerEntry {
 }
 
 const getBanners = async (): Promise<BannerEntry[]> => {
-  'use cache';
   cacheLife('hours');
 
   const { data, error } = await supabase

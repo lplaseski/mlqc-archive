@@ -1,34 +1,41 @@
-import React from 'react';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import getBanners from '@/actions/getBanners';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useParams, notFound } from 'next/navigation';
+import getBanners, { BannerEntry } from '@/actions/getBanners';
 import { getImageMeta } from '@/actions/getImageMeta';
 import BannerDetail from './BannerDetail';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}): Promise<Metadata> {
-  const { id } = await params;
-  const banners = await getBanners();
-  const banner = banners.find((b) => b.id === Number(id));
-  if (!banner) return {};
-  return {
-    title: `${banner.name} | Mr Love: Queen's Choice Archive`,
-    description: `Browse all images from the ${banner.name} banner in Mr Love: Queen's Choice.`,
-  };
-}
+const BannerPage = () => {
+  const { id } = useParams<{ id: string }>();
+  const [banner, setBanner] = useState<BannerEntry | null>(null);
+  const [imageKeys, setImageKeys] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [missing, setMissing] = useState(false);
 
-const BannerPage = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
-  const banners = await getBanners();
-  const banner = banners.find((b) => b.id === Number(id));
+  useEffect(() => {
+    const fetchData = async () => {
+      const banners = await getBanners();
+      const found = banners.find((b) => b.id === Number(id));
 
-  if (!banner) notFound();
+      if (!found) {
+        setMissing(true);
+        return;
+      }
 
-  const images = (await getImageMeta('mlqc-banners', `${banner.name}/`)) || [];
-  const imageKeys = images.map((img) => img.Key || '').filter(Boolean);
+      const images = (await getImageMeta('mlqc-banners', `${found.name}/`)) || [];
+      const keys = images.map((img) => img.Key || '').filter(Boolean);
+
+      setBanner(found);
+      setImageKeys(keys);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (missing) notFound();
+  if (loading || !banner) return null;
 
   return (
     <div className='flex min-h-screen items-center justify-center font-[family-name:var(--font-noto-sans)]'>

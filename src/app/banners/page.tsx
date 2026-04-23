@@ -77,7 +77,7 @@ const BannerListPage = async () => {
                           >
                             <Image
                               alt={image.Key || ''}
-                              src={`https://banners.mlqc-archive.com/${image.Key}`}
+                              src={`https://event-assets.mlqc-archive.com/${image.Key}`}
                               fill
                               style={{
                                 objectFit: 'cover',

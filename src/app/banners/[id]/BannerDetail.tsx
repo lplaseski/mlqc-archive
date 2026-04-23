@@ -21,7 +21,7 @@ const BannerDetail = ({ images }: Props) => {
           >
             <Image
               alt={key}
-              src={`https://banners.mlqc-archive.com/${key}`}
+              src={`https://event-assets.mlqc-archive.com/${key}`}
               fill
               style={{ objectFit: 'cover' }}
               sizes='(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw'
@@ -47,7 +47,7 @@ const BannerDetail = ({ images }: Props) => {
             </button>
             <Image
               alt={selectedImage}
-              src={`https://banners.mlqc-archive.com/${selectedImage}`}
+              src={`https://event-assets.mlqc-archive.com/${selectedImage}`}
               width={1200}
               height={800}
               style={{ objectFit: 'contain', maxHeight: '90vh', width: 'auto' }}
