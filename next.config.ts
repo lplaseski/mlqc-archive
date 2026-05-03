@@ -13,6 +13,13 @@ const nextConfig: NextConfig = {
         pathname: '**',
         search: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'karma.mlqc-archive.com',
+        port: '',
+        pathname: '**',
+        search: '',
+      },
     ],
   },
 };

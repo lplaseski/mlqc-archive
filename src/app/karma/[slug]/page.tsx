@@ -24,7 +24,11 @@ export async function generateMetadata({
   };
 }
 
-const FilteredKarmaCards = async ({ params }: { params: Promise<{ slug: string }> }) => {
+const FilteredKarmaCards = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const cards = await getKarmaData();
   const { slug } = await params;
   const groups = cards.reduce(
@@ -66,10 +70,7 @@ const FilteredKarmaCards = async ({ params }: { params: Promise<{ slug: string }
           </h1>
           <div className='flex w-full flex-row flex-wrap justify-around gap-2'>
             {Object.entries(group.cards).map(([banner, cards]) => (
-              <div
-                className='flex flex-col justify-between gap-2'
-                key={banner}
-              >
+              <div className='flex flex-col justify-between gap-2' key={banner}>
                 <h2 className='text-md rounded-md bg-indigo-900 px-5 py-1 text-center font-medium text-white'>
                   {banner}
                 </h2>
@@ -89,8 +90,9 @@ const FilteredKarmaCards = async ({ params }: { params: Promise<{ slug: string }
                           height={1564}
                           src={
                             card.banner === 'Major Event'
-                              ? `/karma/${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png`
-                              : `/karma/${card.character}_${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png` || ''
+                              ? `https://karma.mlqc-archive.com/${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png`
+                              : `https://karma.mlqc-archive.com/${card.character}_${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png` ||
+                                ''
                           }
                           alt={card.name || ''}
                           className={
@@ -138,7 +140,7 @@ const FilteredKarmaPage = ({
 }) => {
   return (
     <div className='flex min-h-screen min-w-fit items-center justify-center gap-8 font-[family-name:var(--font-noto-sans)]'>
-      <main className='flex w-full flex-col bg-white'>
+      <main className='flex min-h-screen w-full flex-col bg-white align-top'>
         <header className="min-h-60 w-full border-b-20 border-indigo-950 bg-[url('/karma-header.jpg')] bg-cover bg-top bg-no-repeat md:min-h-70 xl:min-h-90 2xl:min-h-120" />
         <div className='flex flex-wrap items-center gap-6 p-10'>
           <p className='font-bold'>View by Character:</p>
@@ -158,7 +160,11 @@ const FilteredKarmaPage = ({
             </Link>
           ))}
         </div>
-        <Suspense fallback={<div className='p-10 text-center text-gray-400'>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className='p-10 text-center text-gray-400'>Loading...</div>
+          }
+        >
           <FilteredKarmaCards params={params} />
         </Suspense>
       </main>

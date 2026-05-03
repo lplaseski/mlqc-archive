@@ -48,7 +48,7 @@ const MLQCPage = async () => {
 
   return (
     <div className='flex min-h-screen min-w-fit items-center justify-center gap-8 font-[family-name:var(--font-noto-sans)]'>
-      <main className='flex w-full flex-col bg-white'>
+      <main className='flex min-h-screen w-full flex-col bg-white align-top'>
         <header className="min-h-60 w-full border-b-20 border-indigo-950 bg-[url('/karma-header.jpg')] bg-cover bg-top bg-no-repeat md:min-h-70 xl:min-h-90 2xl:min-h-120" />
         <div className='flex flex-wrap items-center gap-6 p-10'>
           <p className='font-bold'>View by Character:</p>
@@ -98,8 +98,8 @@ const MLQCPage = async () => {
                               height={1564}
                               src={
                                 card.banner === 'Major Event'
-                                  ? `/karma/${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png`
-                                  : `/karma/${card.character}_${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png` ||
+                                  ? `https://karma.mlqc-archive.com/${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png`
+                                  : `https://karma.mlqc-archive.com/${card.character}_${card.card?.replaceAll(' ', '_').replaceAll("'", '%27')}.png` ||
                                     ''
                               }
                               alt={card.name || ''}
