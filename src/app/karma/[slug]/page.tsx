@@ -29,8 +29,8 @@ const FilteredKarmaCards = async ({
 }: {
   params: Promise<{ slug: string }>;
 }) => {
-  const cards = await getKarmaData();
   const { slug } = await params;
+  const cards = await getKarmaData();
   const groups = cards.reduce(
     (acc, card, index) => {
       const { date, banner, viewed, character } = card;
