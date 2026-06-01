@@ -24,6 +24,12 @@ export default function Home() {
             >
               Banner Assets
             </Link>
+            <Link
+              href='/download'
+              className='rounded-xl border-2 border-indigo-900 px-8 py-3 text-center font-bold text-indigo-900 transition-colors hover:bg-indigo-50'
+            >
+              Mobile App
+            </Link>
           </div>
         </div>
       </main>

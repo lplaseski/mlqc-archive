@@ -8,6 +8,7 @@ const links = [
   { href: '/banners', label: 'Banners' },
   { href: '/chat-messages', label: 'Chat Messages' },
   { href: '/moments-posts', label: 'Moments Posts' },
+  { href: '/download', label: 'Mobile App' },
 ];
 
 const NavLinks = () => {
