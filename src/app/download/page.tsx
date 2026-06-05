@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Read Mr Love: Queen's Choice card stories, browse 300+ events, and track your progress on the go with the MLQC Reader mobile app.",
 };
 
-const APK_URL = 'https://app.mlqc-archive.com/1.0.0.apk';
+const APK_URL = 'https://app.mlqc-archive.com/1.0.1.apk';
 
 export default function AppPage() {
   return (
@@ -28,7 +28,7 @@ export default function AppPage() {
           Download APK
         </a>
         <p className='text-xs text-indigo-400'>
-          Android only &middot; v1.0.0 &middot; Enable &ldquo;Install unknown
+          Android only &middot; v1.0.1 &middot; Enable &ldquo;Install unknown
           apps&rdquo; in your device settings
         </p>
       </section>
@@ -101,7 +101,7 @@ export default function AppPage() {
           Download APK
         </a>
         <p className='text-xs text-indigo-500'>
-          Android &middot; v1.0.0 &middot; Enable &ldquo;Install unknown
+          Android &middot; v1.0.1 &middot; Enable &ldquo;Install unknown
           apps&rdquo; to install
         </p>
       </section>
